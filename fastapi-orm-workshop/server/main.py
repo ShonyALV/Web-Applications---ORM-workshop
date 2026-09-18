@@ -473,3 +473,19 @@ def create_order(
         db.rollback()
 
         raise
+
+@app.get("/products/{product_id}/customers", response_model=list[schemas.CustomerResponse])
+def get_customers_by_product(product_id: int, db: Session = Depends(get_db)):
+    statement = (
+        select(models.Customer)
+        .join(models.Customer.orders)
+        .join(models.Order.items)
+        .where(
+            models.OrderItem.product_id == product_id
+        )
+        .distinct()
+    )
+    
+    customers = db.execute(statement).scalars().all()
+    
+    return customers
