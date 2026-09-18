@@ -1,9 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
+DATABSE_IP = "172.23.207.180"
 
 DATABASE_URL = (
-    "mysql+pymysql://ormuser:ormpass123@localhost/orm_workshop"
+    "mysql+pymysql://ormuser:ormpass123@DATABASE_IP/orm_workshop"
 )
 
 
